@@ -8,12 +8,11 @@ export default class ImageList extends React.Component{
         super(props)
         this.state = {
             links : [
-
             ]
         }
     }
 
-    render(){
+    render(){   
         return(
             <div className="listImages">
                 <ul className="ulImages">
@@ -27,7 +26,9 @@ export default class ImageList extends React.Component{
         if (annyang){
             var commands = {
                 'hola' :  ()=>{
-                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
+                    this.setState({
+                        links : this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
+                    })
                 },
                 'burro' :  ()=>{
                     this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg")
@@ -40,6 +41,7 @@ export default class ImageList extends React.Component{
             annyang.start({
                 continuous : false
             });
+            
         }
     }
 }

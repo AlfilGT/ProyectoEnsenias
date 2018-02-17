@@ -9,12 +9,12 @@ export default class Image extends React.Component{
         super(props);
         this.state = {
             imageList : this.props.showImage,
-            actualImage : this.props.showImage[0],
+            actualImage : this.props.showImage[1],
             imageDefault : this.props.imageDefault
         }
     }
 
-    animacion(){
+    animacion(){ 
         var animationTimes = 0;
         var timerId = setInterval(()=>{
             let actualMargin = parseInt($('.animacion').css('margin-top'));
