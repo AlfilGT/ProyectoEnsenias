@@ -22,7 +22,7 @@ export default class ImageList extends React.Component{
         return(
             <div className="listImages">
                 <ul className="ulImages">
-                    <Image showImage={this.state.links} />
+                    <Image showImage={this.state.links} imageDefault={"http://www.hetah.net/_assets/modules/traductor/img/conector_espera.jpg"} />
                 </ul>
             </div>
         )
