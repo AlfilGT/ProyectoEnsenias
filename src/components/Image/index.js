@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import './Image.css'
 import $ from 'jquery'
+import annyang from 'annyang';
 
 export default class Image extends React.Component{
     constructor(props){

@@ -1,19 +1,14 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import Image from '../Image'
+import annyang from 'annyang'
 
 export default class ImageList extends React.Component{
     constructor(props){
         super(props)
         this.state = {
             links : [
-                "http://www.hetah.net/_assets/modules/traductor/img/c/comida.jpg",
-                "http://www.hetah.net/_assets/modules/traductor/img/c/casa.jpg",
-                "http://www.hetah.net/_assets/modules/traductor/img/c/carro.jpg",
-                "http://www.hetah.net/_assets/modules/traductor/img/a/ala.jpg",
-                "http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg",
-                "http://www.hetah.net/_assets/modules/traductor/img/p/persona.jpg",
-                "http://www.hetah.net/_assets/modules/traductor/img/i/iman.jpg"
+
             ]
         }
     }
@@ -26,5 +21,25 @@ export default class ImageList extends React.Component{
                 </ul>
             </div>
         )
+    }
+
+    componentDidMount(){
+        if (annyang){
+            var commands = {
+                'hola' :  ()=>{
+                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
+                },
+                'burro' :  ()=>{
+                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg")
+                }
+            }
+            
+            annyang.setLanguage('es-CO');
+            annyang.addCommands(commands)
+            annyang.debug();
+            annyang.start({
+                continuous : false
+            });
+        }
     }
 }
