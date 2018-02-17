@@ -9,9 +9,16 @@ export default class Image extends React.Component{
         super(props);
         this.state = {
             imageList : this.props.showImage,
-            actualImage : this.props.showImage[1],
+            actualImage : this.props.showImage[0],
             imageDefault : this.props.imageDefault
         }
+    }
+
+    componentWillReceiveProps(nextProps){
+        this.setState({
+            actualImage : this.state.imageList[0]
+        })
+        this.animacion()
     }
 
     animacion(){ 
@@ -40,6 +47,7 @@ export default class Image extends React.Component{
     }
 
     render(){
+        //console.log(this.state.actualImage)
         return(            
             <li>
                 <img className="animacion" src={this.state.actualImage} />

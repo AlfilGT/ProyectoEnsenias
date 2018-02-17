@@ -31,7 +31,9 @@ export default class ImageList extends React.Component{
                     })
                 },
                 'burro' :  ()=>{
-                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg")
+                    this.setState({
+                        links : this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg")
+                    })
                 }
             }
             
