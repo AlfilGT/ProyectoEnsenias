@@ -7,13 +7,14 @@ export default class ImageList extends React.Component{
         super(props)
         this.state = {
             links : [
-                "http://hetah.net/_assets/modules/traductor/img/b/bienvenido.jpg",
-                "http://hetah.net/_assets/modules/traductor/img/u/universidad.jpg",
-                "http://hetah.net/_assets/modules/traductor/img/alfabeto/d.jpg",
-                "http://hetah.net/_assets/modules/traductor/img/alfabeto/e.jpg",
-                "http://hetah.net/_assets/modules/traductor/img/alfabeto/l.jpg",
-                "http://hetah.net/_assets/modules/traductor/img/m/magdalena.jpg"
-            ]   
+                "http://www.hetah.net/_assets/modules/traductor/img/c/comida.jpg",
+                "http://www.hetah.net/_assets/modules/traductor/img/c/casa.jpg",
+                "http://www.hetah.net/_assets/modules/traductor/img/c/carro.jpg",
+                "http://www.hetah.net/_assets/modules/traductor/img/a/ala.jpg",
+                "http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg",
+                "http://www.hetah.net/_assets/modules/traductor/img/p/persona.jpg",
+                "http://www.hetah.net/_assets/modules/traductor/img/i/iman.jpg"
+            ]
         }
     }
 
@@ -21,7 +22,11 @@ export default class ImageList extends React.Component{
         return(
             <div className="listImages">
                 <ul className="ulImages">
+<<<<<<< HEAD
                     <Image showImage={this.state.links} />
+=======
+                    <Image showImage={this.state.links} imageDefault={"http://www.hetah.net/_assets/modules/traductor/img/conector_espera.jpg"} />
+>>>>>>> 486ba5cba189a6025c8f5a1ac7ad857a75926ed4
                 </ul>
             </div>
         )
