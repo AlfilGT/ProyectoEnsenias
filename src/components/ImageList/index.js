@@ -29,12 +29,27 @@ export default class ImageList extends React.Component{
         }
         return s.replace (/[\u0300-\u036F]/g, "");
     }
+    numeroALetra(s){
+        var vector = s.split(" ");
+        var cadenaSinNumeros = new Array();
+        vector.forEach(function(palabra,index) {
+            if(!isNaN(palabra)){
+                cadenaSinNumeros[index] = writtenNumbers(palabra,{lang:'es'})
+            }else{
+                cadenaSinNumeros[index] = palabra;
+            }
+            
+        });
+        return cadenaSinNumeros.join(" ");
+    }
 
     componentDidMount(){
         if (annyang){
             var commands = {
                 '*tag' : (tag)=>{
-                    console.log(writtenNumbers(tag,{lang:'es'}) +" asdasd");
+                    tag = this.noTilde(tag);
+                    tag = this.numeroALetra(tag);
+                    console.log("La palabra: "+tag);
                 },
                 'hola' :  ()=>{
                     this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
