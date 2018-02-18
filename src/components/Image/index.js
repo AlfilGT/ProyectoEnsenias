@@ -21,6 +21,10 @@ export default class Image extends React.Component{
         this.animacion()
     }
 
+    /*getLastAnimation(){
+        this.state.imageList.find(this.state.actualImage);
+    }*/
+
     animacion(){ 
         var animationTimes = 0;
         var timerId = setInterval(()=>{
@@ -33,8 +37,10 @@ export default class Image extends React.Component{
                     actualImage : this.state.imageList[animationTimes]
                 })
                 if(animationTimes >= this.state.imageList.length){
+                    this.state.imageList.shift();
                     this.setState({
-                        actualImage: this.state.imageDefault
+                        actualImage: this.state.imageDefault,
+                        imageList : this.state.imageList
                     })
                     clearInterval(timerId);
                 }
@@ -47,7 +53,6 @@ export default class Image extends React.Component{
     }
 
     render(){
-        //console.log(this.state.actualImage)
         return(            
             <li>
                 <img className="animacion" src={this.state.actualImage} />
