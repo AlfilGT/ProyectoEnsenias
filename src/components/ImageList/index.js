@@ -2,6 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import Image from '../Image'
 import annyang from 'annyang'
+import writtenNumbers from 'written-number'
 
 export default class ImageList extends React.Component{
     constructor(props){
@@ -21,9 +22,20 @@ export default class ImageList extends React.Component{
         )
     }
 
+    noTilde (s) { // Eliminar tildes y ñ 
+        s = s.toLowerCase();
+        if (s.normalize != undefined) {
+            s = s.normalize ("NFKD");
+        }
+        return s.replace (/[\u0300-\u036F]/g, "");
+    }
+
     componentDidMount(){
         if (annyang){
             var commands = {
+                '*tag' : (tag)=>{
+                    console.log(writtenNumbers(tag,{lang:'es'}) +" asdasd");
+                },
                 'hola' :  ()=>{
                     this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
                     this.setState({
