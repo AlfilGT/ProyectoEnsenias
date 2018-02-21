@@ -1,6 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import ImageList from './components/ImageList';
+import App from './components/App';
 
-ReactDOM.render(<ImageList />, document.getElementById('root'));
+ReactDOM.render(<App />, document.getElementById('root'));
 
