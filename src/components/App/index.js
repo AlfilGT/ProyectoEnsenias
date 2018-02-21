@@ -11,11 +11,12 @@ export default class App extends React.Component{
         return(
             <Router>
                 <div>
-                    <Route path="/" component={()=>{
+                    <Route exact path="/" component={()=>{
                         return(
                             <ImageList />
                         )
                     }} />
+
                 </div>
             </Router>
         )
