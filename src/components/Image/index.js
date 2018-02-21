@@ -1,7 +1,9 @@
 import React from 'react';
+// eslint-disable-next-line
 import ReactDOM from 'react-dom';
 import './Image.css'
 import $ from 'jquery'
+// eslint-disable-next-line
 import annyang from 'annyang';
 
 export default class Image extends React.Component{
@@ -28,7 +30,7 @@ export default class Image extends React.Component{
     animacion(){ 
         var animationTimes = 0;
         var timerId = setInterval(()=>{
-            let actualMargin = parseInt($('.animacion').css('margin-top'));
+            let actualMargin = parseInt($('.animacion').css('margin-top'),10);
             $('.animacion').css({'margin-top': actualMargin-240});
             if(actualMargin <= -2640){
                 $('.animacion').css({'margin-top': '0px'});
@@ -55,7 +57,7 @@ export default class Image extends React.Component{
     render(){
         return(            
             <li>
-                <img className="animacion" src={this.state.actualImage} />
+                <img className="animacion" alt="" src={this.state.actualImage} />
             </li>
         )
     }

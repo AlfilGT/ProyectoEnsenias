@@ -1,8 +1,9 @@
 import React from 'react';
+// eslint-disable-next-line
 import ReactDOM from 'react-dom';
 import Image from '../Image'
 import annyang from 'annyang'
-import writtenNumbers from 'written-number'
+import writtenNumbers from 'written-number';
 
 export default class ImageList extends React.Component{
     constructor(props){
@@ -24,14 +25,15 @@ export default class ImageList extends React.Component{
 
     noTilde (s) { // Eliminar tildes y ñ 
         s = s.toLowerCase();
-        if (s.normalize != undefined) {
+        if (s.normalize !== undefined) {
             s = s.normalize ("NFKD");
         }
         return s.replace (/[\u0300-\u036F]/g, "");
     }
+
     numeroALetra(s){
         var vector = s.split(" ");
-        var cadenaSinNumeros = new Array();
+        var cadenaSinNumeros = [];
         vector.forEach(function(palabra,index) {
             if(!isNaN(palabra)){
                 cadenaSinNumeros[index] = writtenNumbers(palabra,{lang:'es'})
@@ -46,11 +48,6 @@ export default class ImageList extends React.Component{
     componentDidMount(){
         if (annyang){
             var commands = {
-                '*tag' : (tag)=>{
-                    tag = this.noTilde(tag);
-                    tag = this.numeroALetra(tag);
-                    console.log("La palabra: "+tag);
-                },
                 'hola' :  ()=>{
                     this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
                     this.setState({
@@ -62,6 +59,12 @@ export default class ImageList extends React.Component{
                     this.setState({
                         links : this.state.links
                     })
+                },
+                '*tag' : (tag)=>{
+                    
+                    tag = this.noTilde(tag);
+                    tag = this.numeroALetra(tag);
+                    console.log("La palabra: "+tag);
                 }
             }
             
