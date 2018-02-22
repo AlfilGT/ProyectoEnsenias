@@ -45,6 +45,15 @@ export default class ImageList extends React.Component{
         return cadenaSinNumeros.join(" ");
     }
 
+    async peticionPrueba(tag){
+        var response = await fetch('/consulta',{
+            method : 'POST',
+            headers : {'Content-Type': 'application/json'},
+            body : JSON.stringify({frase:tag})
+        })
+        var dataRecieved = await response.json();
+    }
+
     componentDidMount(){
         if (annyang){
             var commands = {
@@ -61,9 +70,11 @@ export default class ImageList extends React.Component{
                     })
                 },
                 '*tag' : (tag)=>{
-                    
                     tag = this.noTilde(tag);
                     tag = this.numeroALetra(tag);
+                    tag = tag.split(' ');
+                    this.peticionPrueba(tag);
+
                     console.log("La palabra: "+tag);
                 }
             }
