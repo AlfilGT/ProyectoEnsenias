@@ -18,42 +18,28 @@ app.use(express.static(path.resolve(__dirname, '../../build')));
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
+
 app.post('/consulta',(req,res)=>{
     var data = req.body.frase;
     let consulta;
     let respuesta = [];
-    let resultadosConsulta;
     // Si en la oracion, existen 2 palabras que corresponden una seña
     // Comparamos las palabras de 2 en 2
     for(let i=1;i<data.length;i++){
         consulta = `SELECT * FROM imagen WHERE nombre = "${data[i-1] +' '+ data[i]}"`;
-        
         connection.query(consulta, function (error, results, fields) {
             if (error) throw error;
+
             if(results.length > 0){ // Si existe una seña que tenga 2 palabras
-                
                 data[i-1] = data[i-1] +" "+data[i]; // Unidos jamas seran vencidos
-                
                 data.splice(i, 1);
-                console.log(data);  
-                resultadosConsulta = data;
-                //console.log(data[i-1] +  " = " + data[i] + ": " + results)
             }
-            //console.log(fields)
-             resultadosConsulta = data;
         });
-        
-       
     }
 
-    console.log(resultadosConsulta);
-    
-    
-    /*connection.query('SELECT count(*) from imagen', function (error, results, fields) {
-        if (error) throw error;
-        res.status(200).send(results[0])
-    });*/
 })
+
+
 app.get('*',(req,res)=>{
     res.sendFile(path.resolve(__dirname + '/index.html'))
 })
