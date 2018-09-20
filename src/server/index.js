@@ -42,6 +42,8 @@ function query(data){
         console.log('probmesa')
         consulta = `SELECT * FROM WordWithSpaces`;
         connection.query(consulta, function (error, results, fields) {
+            console.log('Resultado: ')
+            result = JSON.parse(JSON.stringify(results));
             if (error) reject(error); //terminate the promisse...
             if(results[0].length > 0){
                 console.log('la consulta fue: ')
