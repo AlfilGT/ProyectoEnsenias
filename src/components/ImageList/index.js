@@ -46,6 +46,7 @@ export default class ImageList extends React.Component{
     }
 
     async peticionPrueba(tag){
+        console.log('Preticion prueba')
         var response = await fetch('/consulta',{
             method : 'POST',
             headers : {'Content-Type': 'application/json'},

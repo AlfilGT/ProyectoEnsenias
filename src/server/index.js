@@ -11,10 +11,11 @@ var connection = mysql.createConnection({
   password : '',
   database : 'enseniasbd'
 });
+
 connection.connect();
 
 app.use(cors())
-app.use(express.static(path.resolve(__dirname, '../../build')));
+
 app.use(bodyParser.urlencoded({extended:true}));
 app.use(bodyParser.json());
 
@@ -23,9 +24,9 @@ app.post('/consulta',(req,res)=>{
     var data = req.body.frase;
     let consulta;
     let respuesta = [];
-
+    console.log('Esto va a data: ',data);
     query(data).then(result => {
-        console.log(data);
+       
         // implement your success case...
 
     }).catch(err => {
@@ -35,47 +36,24 @@ app.post('/consulta',(req,res)=>{
 });
 
 function query(data){
+    console.log('QUeryyyyyyyy')
 
     return new Promise((resolve, reject) => {
-
-        var counter = 0;
-
-        if (data.length > 0){
-
-            for(let i=1;i<data.length;i++){
-
-                consulta = `SELECT * FROM imagen WHERE nombre = "${data[i-1] +' '+ data[i]}"`;
-
-                connection.query(consulta, function (error, results, fields) {
-                    if (error) reject(error); //terminate the promisse...
-
-                    if(results.length > 0){ // Si existe una seña que tenga 2 palabras
-                        data[i-1] = data[i-1] +" "+data[i]; // Unidos jamas seran vencidos
-                        data.splice(i, 1);
-                    }
-
-                    counter++;
-
-                    if (counter >= data.length){
-                        resolve("Everything OK");
-                    }
-
-                });
-
+        console.log('probmesa')
+        consulta = `SELECT * FROM WordWithSpaces`;
+        connection.query(consulta, function (error, results, fields) {
+            if (error) reject(error); //terminate the promisse...
+            if(results[0].length > 0){
+                console.log('la consulta fue: ')
+                console.log(results);
             }
-
-        } else {
-            reject("There are no data"); //terminate the promise...
-        }
+        });
 
     });
 
 }
 
 
-app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname + '/index.html'))
-})
 
 
 app.listen(3001,function(){
