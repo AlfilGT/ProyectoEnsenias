@@ -73,9 +73,6 @@ function query(data){
 }
 
 
-app.get('*',(req,res)=>{
-    res.sendFile(path.resolve(__dirname + '/index.html'))
-})
 
 
 app.listen(3001,function(){
