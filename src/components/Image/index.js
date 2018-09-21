@@ -55,7 +55,7 @@ export default class Image extends React.Component{
     }
 
     render(){
-        return(            
+        return(
             <li>
                 <img className="animacion" alt="" src={this.state.actualImage} />
             </li>
