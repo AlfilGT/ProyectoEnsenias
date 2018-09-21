@@ -7,7 +7,9 @@ var connection = mysql.createConnection({
   database : 'enseniasbd'
 });
 
-connection.connect();
+connection.connect(function(err) {
+    if (err) throw err;
+});
 
 module.exports = {
     connection
