@@ -53,6 +53,7 @@ export default class ImageList extends React.Component{
             body : JSON.stringify({frase:tag})
         })
         var dataRecieved = await response.json();
+        console.log("el dato recibido es "+ dataRecieved);
     }
 
     componentDidMount(){

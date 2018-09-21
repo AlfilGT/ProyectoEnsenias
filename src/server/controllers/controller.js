@@ -7,6 +7,14 @@ var connection = mysql.createConnection({
     password: '',
     database: 'enseniasbd'
 });
+var mysql2 = require('promise-mysql');
+pool = mysql2.createPool({
+    host: 'localhost',
+    user: 'root',
+    password: '',
+    database: 'enseniasbd',
+    connectionLimit: 10
+  });
 
 
 function checkWordSpaces(req,res,next){
@@ -51,20 +59,20 @@ function querysignsArray(req,res,next){
     let consulta;
     let signsArray = res.locals.signsArray; // Recibo los datos de la funcion anterior
     let response = []; // Array para guardar la respuesta total
-    signsArray.forEach(function(element){ // Recorro el array de las palabras
+    signsArray.forEach(function(element,index){ // Recorro el array de las palabras
         consulta = `SELECT link FROM imagen WHERE nombre = '${element}'`; // Hago la consulta
-        connection.query(consulta,function(error,result,fields){ // Ejecuto la consulta
-            result = JSON.parse(JSON.stringify(result)); // Traigo las respuestas
-            response.push(result[0].link); // Las meto en un array todas las respuestas
+        pool.query(consulta).then(function(rows){
+            result = JSON.parse(JSON.stringify(rows));
+            response.push(result[0].link);
+        }).then(function(){
+            if (index === signsArray.length - 1){ 
+                //console.log(response);
+                res.send({ hello: 'world' });
+                //res.json(JSON.stringify({ response: response }));
+            }
         })
-        console.log(response) // Aqui no lo muestra porque esta verga es asincrona
-        setTimeout(function(){
-            console.log(response) // Aqui si lo muestra porque le puse tiempo xd
-        },3000)
 
     })
-    
-
 }
 
 module.exports = {
