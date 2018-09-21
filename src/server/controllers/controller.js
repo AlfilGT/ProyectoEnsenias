@@ -1,4 +1,16 @@
+//const db = require('../database')
+var mysql = require('mysql');
+
+var connection = mysql.createConnection({
+  host     : 'localhost',
+  user     : 'root',
+  password : '',
+  database : 'enseniasbd'
+});
+
+
 function checkWordSpaces(req,res){
+    console.log("asdasd");
     var data = req.body.frase;
     query(data).then(result => {
         // implement your success case...
