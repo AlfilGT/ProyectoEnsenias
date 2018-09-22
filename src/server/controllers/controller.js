@@ -14,14 +14,14 @@ pool = mysql2.createPool({
     password: '',
     database: 'enseniasbd',
     connectionLimit: 10
-  });
+});
 
 
-function checkWordSpaces(req,res,next){
+function checkWordSpaces(req, res, next) {
     var data = req.body.frase;
     query(data).then(result => {
         // implement your success case...
-        res.locals.signsArray = result;// Enviar datos a la funcion siguiente en la ruta
+        res.locals.signsArray = result; // Enviar datos a la funcion siguiente en la ruta
         next(); // Funcion siguiente en la ruta
     }).catch(err => {
         //throw exception here...
@@ -55,19 +55,37 @@ function checkWordSpaces(req,res,next){
     }
 }
 
-function querysignsArray(req,res,next){
+function querysignsArray(req, res, next) {
     let consulta;
     let signsArray = res.locals.signsArray; // Recibo los datos de la funcion anterior
     let response = []; // Array para guardar la respuesta total
-    signsArray.forEach(function(element,index){ // Recorro el array de las palabras
+    signsArray.forEach(function (element, index) { // Recorro el array de las palabras
         consulta = `SELECT link FROM imagen WHERE nombre = '${element}'`; // Hago la consulta
-        pool.query(consulta).then(function(rows){
+        pool.query(consulta).then(function (rows) {
             result = JSON.parse(JSON.stringify(rows));
-            response.push(result[0].link);
-        }).then(function(){
-            if (index === signsArray.length - 1){ 
+
+            if (result[0] == undefined) { // Se debe deletrear
+                let str = 'SELECT link FROM imagen WHERE'
+                element.split("").forEach(function (element, index) {
+                    str += ` nombre = '${element}' OR`
+                });
+                str = str.substring(0, str.length - 3);
+                pool.query(str).then(function (rows) {
+                    result = JSON.parse(JSON.stringify(rows));
+                    console.log('DELETREO: ')
+                    console.log(result)
+                });
+                console.log('deletreo encontro: ', element);
+                console.log("consulta new: ", str)
+            } else {
+                response.push(result[0].link);
+            }
+        }).then(function () {
+            if (index === signsArray.length - 1) {
                 //console.log(response);
-                res.send({ hello: 'world' });
+                res.send({
+                    hello: 'world'
+                });
                 //res.json(JSON.stringify({ response: response }));
             }
         })
