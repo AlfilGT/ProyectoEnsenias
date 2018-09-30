@@ -23,6 +23,7 @@ function checkWordSpaces(req, res, next) {
         // implement your success case...
         res.locals.signsArray = result; // Enviar datos a la funcion siguiente en la ruta
         next(); // Funcion siguiente en la ruta
+        //res.status(200).send({response:response});
     }).catch(err => {
         //throw exception here...
     });
@@ -81,13 +82,13 @@ function querysignsArray(req, res, next) {
                 response.push(result[0].link);
             }
         }).then(function () {
-            if (index === signsArray.length - 1) {
-                //console.log(response);
-                res.send({
+            res.status(200).send({response:response});
+            //if (index === signsArray.length - 1) {
+                /*res.send({
                     hello: 'world'
-                });
+                });*/
                 //res.json(JSON.stringify({ response: response }));
-            }
+            //}
         })
 
     })
