@@ -54,12 +54,20 @@ export default class ImageList extends React.Component{
         })
         var dataRecieved = await response.json();
         console.log("el dato recibido es "+ dataRecieved);
+
+        console.log('state links:');
+
+        console.log(this.state.links);
     }
 
     componentDidMount(){
+        // Para probar
         if (annyang){
             var commands = {
                 'hola' :  ()=>{
+                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
+                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg")
+                    this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/b/burro.jpg")
                     this.state.links.push("http://www.hetah.net/_assets/modules/traductor/img/h/hola.jpg")
                     this.setState({
                         links : this.state.links
@@ -80,14 +88,12 @@ export default class ImageList extends React.Component{
                     console.log("La palabra: "+tag);
                 }
             }
-            
             annyang.setLanguage('es-CO');
             annyang.addCommands(commands)
             annyang.debug();
             annyang.start({
                 continuous : false
             });
-            
         }
     }
 }

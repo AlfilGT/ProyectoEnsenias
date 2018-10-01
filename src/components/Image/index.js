@@ -5,14 +5,19 @@ import './Image.css'
 import $ from 'jquery'
 // eslint-disable-next-line
 import annyang from 'annyang';
-
+var animationTimes = 0;
+var s = true;
 export default class Image extends React.Component{
+    
     constructor(props){
         super(props);
-        this.state = {
-            imageList : this.props.showImage,
-            actualImage : this.props.showImage[0],
-            imageDefault : this.props.imageDefault
+        if (s == true){
+            s = false;
+            this.state = {
+                imageList : this.props.showImage,
+                actualImage : this.props.showImage[0],
+                imageDefault : this.props.imageDefault
+            }
         }
     }
 
@@ -28,7 +33,7 @@ export default class Image extends React.Component{
     }*/
 
     animacion(){ 
-        var animationTimes = 0;
+        
         var timerId = setInterval(()=>{
             let actualMargin = parseInt($('.animacion').css('margin-top'),10);
             $('.animacion').css({'margin-top': actualMargin-240});
@@ -45,6 +50,7 @@ export default class Image extends React.Component{
                         imageList : this.state.imageList
                     })
                     clearInterval(timerId);
+                    s = true;
                 }
             }
         },100);
