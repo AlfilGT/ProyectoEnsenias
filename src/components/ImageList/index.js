@@ -11,13 +11,14 @@ export default class ImageList extends React.Component{
         this.state = {
             links : []
         }
+        this.peticionPrueba = this.peticionPrueba.bind(this);   
     }
 
     render(){
         return(
             <div className="listImages">
                 <ul className="ulImages">
-                    <Image showImage={this.state.links} imageDefault={"http://www.hetah.net/_assets/modules/traductor/img/conector_espera.jpg"} />
+                    <Image showImage={this.state.links} imageDefault={"conector_espera.jpg"} />
                 </ul>
             </div>
         )
@@ -46,18 +47,21 @@ export default class ImageList extends React.Component{
     }
 
     async peticionPrueba(tag){
-        console.log('Preticion prueba')
+        
         var response = await fetch('/api/consulta',{
             method : 'POST',
             headers : {'Content-Type': 'application/json'},
             body : JSON.stringify({frase:tag})
         })
         var dataRecieved = await response.json();
-        console.log("el dato recibido es "+ dataRecieved);
-
-        console.log('state links:');
-
-        console.log(this.state.links);
+        console.log("el dato recibido es "+ dataRecieved.response);
+        let _this = this;
+        dataRecieved.response.forEach(function(element,index){
+            _this.state.links.push(element);
+        })
+        this.setState({
+            links : this.state.links
+        })
     }
 
     componentDidMount(){
@@ -84,7 +88,6 @@ export default class ImageList extends React.Component{
                     tag = this.numeroALetra(tag);
                     tag = tag.split(' ');
                     this.peticionPrueba(tag);
-
                     console.log("La palabra: "+tag);
                 }
             }
